@@ -418,7 +418,7 @@ public abstract class BaseTest {
 				return root + tool;
 			}
 		}
-		throw new RuntimeException("Could not locate " + tool);
+		return null;
 	}
 
 	private String locateNodeJS() {
@@ -426,7 +426,10 @@ public abstract class BaseTest {
 		String propName = "antlr-javascript-nodejs";
 		String prop = System.getProperty(propName);
 		if (prop == null || prop.length() == 0) {
-			prop = locateTool("node");
+			prop = locateTool("nodejs"); // seems to be nodejs on ubuntu
+		}
+		if ( prop==null ) {
+			prop = locateTool("node"); // seems to be node on mac
 		}
 		File file = new File(prop);
 		if (!file.exists()) {
@@ -434,6 +437,7 @@ public abstract class BaseTest {
 		}
 		return prop;
 	}
+	
 
 	private String locateRuntime() {
 		String propName = "antlr-javascript-runtime";
