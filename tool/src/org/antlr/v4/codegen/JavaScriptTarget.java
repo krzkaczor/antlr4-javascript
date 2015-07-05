@@ -178,11 +178,6 @@ public class JavaScriptTarget extends Target {
 			return String.valueOf((char)v);
 		}
 
-		if ( v>=0 && v<=127 ) {
-			String oct = Integer.toOctalString(v);
-			return "\\"+ oct;
-		}
-
 		String hex = Integer.toHexString(v|0x10000).substring(1,5);
 		return "\\u"+hex;
 	}
