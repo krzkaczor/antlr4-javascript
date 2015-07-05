@@ -426,7 +426,7 @@ public abstract class BaseTest {
 		String propName = "antlr-javascript-nodejs";
 		String prop = System.getProperty(propName);
 		if (prop == null || prop.length() == 0) {
-			prop = locateTool("nodejs");
+			prop = locateTool("node");
 		}
 		File file = new File(prop);
 		if (!file.exists()) {
