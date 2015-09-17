@@ -87,16 +87,14 @@ function ParseTreeVisitor() {
 
 ParseTreeVisitor.prototype.visit = function(ctx) {
 	if (Utils.isArray(ctx)) {
-		var children = ctx;
-
 		var self = this;
-		return children.map(function(child) { return self.visitAtom(child)});
+		return ctx.map(function(child) { return visitAtom(self, child)});
 	} else {
-		return this.visitAtom(ctx);
+		return visitAtom(this, ctx);
 	}
 };
 
-ParseTreeVisitor.prototype.visitAtom = function(ctx) {
+var visitAtom = function(visitor, ctx) {
 	if (ctx.parser === undefined) { //is terminal
 		return;
 	}
@@ -104,7 +102,7 @@ ParseTreeVisitor.prototype.visitAtom = function(ctx) {
 	var name = ctx.parser.ruleNames[ctx.ruleIndex];
 	var funcName = "visit" + Utils.titleCase(name);
 
-	return this[funcName](ctx);
+	return visitor[funcName](ctx);
 };
 
 function ParseTreeListener() {
